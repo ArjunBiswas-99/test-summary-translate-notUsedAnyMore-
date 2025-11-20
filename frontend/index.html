@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arjun AI Text Tools - Translation & Summarization</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="app-title">🌐 Arjun AI Text Tools</h1>
+                <p class="app-subtitle">Powered by Advanced AI Models</p>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </header>
+
+        <!-- Translation Settings -->
+        <section class="settings-section">
+            <h2 class="section-title">🔧 Translation Settings</h2>
+            
+            <div class="settings-row">
+                <div class="form-group full-width">
+                    <label for="translationModel">AI Model</label>
+                    <select id="translationModel" class="select-input">
+                        <option value="nllb">NLLB-200 (Best for Indian Languages) ⭐</option>
+                        <option value="opus">Helsinki-NLP OPUS (Fast)</option>
+                        <option value="mt5">mT5 (Multilingual)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="settings-row">
+                <div class="form-group">
+                    <label for="sourceLanguage">From</label>
+                    <select id="sourceLanguage" class="select-input">
+                        <!-- Populated by JavaScript -->
+                    </select>
+                </div>
+
+                <div class="swap-icon">
+                    <button class="icon-button" id="swapLanguages" aria-label="Swap languages">
+                        🔄
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label for="targetLanguage">To</label>
+                    <select id="targetLanguage" class="select-input">
+                        <!-- Populated by JavaScript -->
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Text Input/Output Panels -->
+        <section class="translation-section">
+            <div class="panel-container">
+                <!-- Input Panel -->
+                <div class="panel input-panel">
+                    <div class="panel-header">
+                        <h3>📝 Enter Text</h3>
+                        <button class="btn-secondary btn-small" id="clearInput">🗑️ Clear</button>
+                    </div>
+                    <textarea 
+                        id="inputText" 
+                        class="text-area" 
+                        placeholder="Type or paste your text here..."
+                        maxlength="10000"
+                    ></textarea>
+                    <div class="panel-footer">
+                        <span class="stats" id="inputStats">Characters: 0 | Words: 0</span>
+                    </div>
+                </div>
+
+                <!-- Output Panel -->
+                <div class="panel output-panel">
+                    <div class="panel-header">
+                        <h3>📄 Result</h3>
+                        <div class="button-group">
+                            <button class="btn-secondary btn-small" id="copyOutput" disabled>📋 Copy</button>
+                            <button class="btn-secondary btn-small" id="downloadOutput" disabled>💾 Download</button>
+                        </div>
+                    </div>
+                    <textarea 
+                        id="outputText" 
+                        class="text-area" 
+                        placeholder="Translation will appear here..."
+                        readonly
+                    ></textarea>
+                    <div class="panel-footer">
+                        <span class="stats" id="outputStats">Characters: 0 | Words: 0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Translate Button -->
+            <div class="action-button-container">
+                <button class="btn-primary btn-large" id="translateBtn">
+                    <span class="btn-text">🔄 Translate</span>
+                    <span class="spinner" id="translateSpinner"></span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Summarization Section -->
+        <section class="summary-section collapsed" id="summarySection">
+            <div class="section-header" id="summaryToggle">
+                <h2 class="section-title">✨ Summarization</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+
+            <div class="summary-content">
+                <div class="settings-row">
+                    <div class="form-group">
+                        <label for="summaryModel">AI Model</label>
+                        <select id="summaryModel" class="select-input">
+                            <option value="bart">BART-large-CNN (Best Quality) ⭐</option>
+                            <option value="distilbart">DistilBART (Faster)</option>
+                            <option value="t5">T5-base (Balanced)</option>
+                            <option value="mbart">mBART-50 (Multilingual)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Summary Length</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="summaryLength" value="short" checked>
+                                <span>Short</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="summaryLength" value="medium">
+                                <span>Medium</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="summaryLength" value="long">
+                                <span>Long</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-row">
+                    <div class="form-group">
+                        <label>Output Format</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="summaryFormat" value="paragraph" checked>
+                                <span>Paragraph</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="summaryFormat" value="bullets">
+                                <span>Bullets</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Apply To</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="summarySource" value="original" checked>
+                                <span>Original Text</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="summarySource" value="translated">
+                                <span>Translated Text</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-button-container">
+                    <button class="btn-primary btn-large" id="summarizeBtn">
+                        <span class="btn-text">✨ Summarize</span>
+                        <span class="spinner" id="summarizeSpinner"></span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Status Bar -->
+        <div class="status-bar" id="statusBar">
+            <span id="statusMessage">Ready</span>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

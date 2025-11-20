@@ -1,0 +1,50 @@
+================================================================================
+    ARJUN AI TEXT TOOLS - Setup Instructions
+================================================================================
+
+WHAT YOU NEED:
+--------------
+1. Python 3.8 or higher
+2. A free API token from https://huggingface.co/settings/tokens
+
+SETUP STEPS:
+------------
+
+Step 1: Install Python Dependencies
+   cd backend
+   pip3 install -r requirements.txt
+   (Note: Use 'pip3' on macOS/Linux, 'pip' on Windows)
+
+Step 2: Configure API Token
+   - Copy .env.example to .env in the root folder
+   - Get your free token from: https://huggingface.co/settings/tokens
+   - Open .env and add your token:
+     API_TOKEN=your_actual_token_here
+
+Step 3: Start the Backend Server
+   cd backend
+   python app.py
+   
+   You should see: "Server running at: http://localhost:5000"
+
+Step 4: Open the Application
+   - Open frontend/index.html in your web browser
+   - Start using the translator and summarizer!
+
+FEATURES:
+---------
+✓ Translation: 30+ languages (Hindi, Bengali, Tamil, Telugu, etc.)
+✓ Summarization: Multiple AI models with customizable length
+✓ Dark/Light theme
+✓ Copy & Download results
+✓ Responsive design
+
+TROUBLESHOOTING:
+----------------
+- If backend won't start: Check if Python is installed (python --version)
+- If API errors occur: Verify your token in .env file
+- If languages don't load: Ensure backend is running on port 5000
+
+Need help? Check the console in your browser (F12) for error messages.
+
+================================================================================
